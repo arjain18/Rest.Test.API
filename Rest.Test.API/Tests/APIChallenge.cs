@@ -1,9 +1,9 @@
 ﻿
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Rest.Test.API.Helpers;
 using RestSharp;
-using System;
 using System.Threading.Tasks;
-using static Rest.Test.API.Helpers.FrameworkHelper;
+
 
 namespace Rest.Test.API
 {
@@ -13,11 +13,12 @@ namespace Rest.Test.API
         [TestMethod]
         public async Task TestMethodPostAsync()
         {
+            Report.print("TestCase Execution started");
             RestClient client = new RestClient("https://apichallenges.herokuapp.com/challenger");
             RestRequest request = new RestRequest("",Method.Post);
             RestResponse restResponse = await client.PostAsync(request);
 
-           checkAssert(201, (int)restResponse.StatusCode);
+           FrameworkHelper.checkAssert(201, (int)restResponse.StatusCode);
 
         }
     }

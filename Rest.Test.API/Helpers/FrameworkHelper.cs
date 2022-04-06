@@ -4,15 +4,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Rest.Test.API.Helpers;
 
 namespace Rest.Test.API.Helpers
 {
     public class FrameworkHelper
     {
-        public static void print(string abc)
-        {
-            Console.WriteLine(abc);
-        }
+
 
         public static void checkAssert(int expectedValue, int actualValue)
         {
@@ -21,11 +19,11 @@ namespace Rest.Test.API.Helpers
             {
                 Assert.AreEqual(expectedValue, actualValue);
                 str = "Comparisson is passed";
-                print(str);
+                Report.print(str);
             }
             catch (Exception ex)
             {
-                print(ex.ToString());
+                Report.print(ex.ToString());
                 str = "Comparisson is failed";
                 Assert.Fail(str);
             }
