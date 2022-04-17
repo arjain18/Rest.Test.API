@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using OfficeOpenXml;
 using System.IO;
 
+
 namespace Rest.Test.API
 {
     [TestClass]
@@ -41,6 +42,18 @@ namespace Rest.Test.API
             Report.print(valB1);
             
         }
+        }
+        
+        [DataTestMethod]
+        [DataSource("Microsoft.VisualStudio.TestTools.DataSource.CSV",
+            @"C:\\Development\\Rest.Test.API\\Rest.Test.API\\TestData\\Testdata.csv",
+            "Testdata#csv",
+            DataAccessMethod.Sequential)]
+        public void Test_Multiply_DataSource_CSV()
+        {
+            Report.print(TestContext.DataRow["ar"]);
+
+   
         }
     }
 }
