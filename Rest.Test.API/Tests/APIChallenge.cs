@@ -1,9 +1,9 @@
 ﻿
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Rest.Test.API.Helpers;
 using RestSharp;
 using System.Threading.Tasks;
 using OfficeOpenXml;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.IO;
 
 
@@ -12,6 +12,12 @@ namespace Rest.Test.API
     [TestClass]
     public class APIChallenges
     {
+private TestContext testContextInstance;
+public TestContext TestContextInstance
+{
+   get { return testContextInstance; }
+   set { testContextInstance = value; }
+}
         [TestMethod]
         public async Task TestMethodPostAsync()
         {
@@ -25,35 +31,17 @@ namespace Rest.Test.API
 
         }
         
+
         [TestMethod]
-        public void TestExcel()
-        {
-          FileInfo existingFile = new FileInfo($"C:\\Development\\Rest.Test.API\\Rest.Test.API\\TestData\\TestData.xlsx");
-			using (ExcelPackage package = new ExcelPackage(existingFile))
-			{
-                // get the first worksheet in the workbook
-                ExcelWorksheet worksheet = package.Workbook.Worksheets[0];
-               
-           
-            string valA1 = worksheet.Cells["A1"].Value.ToString();
-            string valB1 = worksheet.Cells[1, 2].Value.ToString();
-
-            Report.print(valA1);
-            Report.print(valB1);
-            
-        }
-        }
-        
-        [DataTestMethod]
         [DataSource("Microsoft.VisualStudio.TestTools.DataSource.CSV",
-            @"C:\\Development\\Rest.Test.API\\Rest.Test.API\\TestData\\Testdata.csv",
-            "Testdata#csv",
-            DataAccessMethod.Sequential)]
-        public void Test_Multiply_DataSource_CSV()
+         @"|DataDirectory|\TestData\TestData.csv", "Test1#csv",
+         DataAccessMethod.Sequential)]
+        public void Verify_ReadCSV()
         {
-            Report.print(TestContext.DataRow["ar"]);
+            string _firstName = testContextInstance.DataRow[0].ToString();
+          //  string _lastName = TestContext.DataRow[1].ToString();
+         //   string _name = TestContext.DataRow[2].ToString();
 
-   
         }
     }
 }
