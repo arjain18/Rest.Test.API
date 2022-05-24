@@ -1,5 +1,5 @@
 # Rest.Test.API Current status : Underdevelopment
-C# framework to test Rest APIs using RestSharp
+C# framework to test Rest APIs using RestSharp.
 This framework will enable testers to directly start automation for RestAPIs through C# with RestSharp framework (using mstest)
 Features:
 1. support for test data -> csv files
