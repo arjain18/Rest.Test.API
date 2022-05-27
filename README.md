@@ -7,7 +7,7 @@ Features:
 3. Logs
 4. HTTPS support
 5. Parallel Execution
-6. Suport Containirization
+6. Suport Containerization
 7. Configurable test data location
 8. Selection of environment
 9. Selection of test categoty through UI
