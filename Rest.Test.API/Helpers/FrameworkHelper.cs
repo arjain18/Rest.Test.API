@@ -18,13 +18,13 @@ namespace Rest.Test.API.Helpers
             try
             {
                 Assert.AreEqual(expectedValue, actualValue);
-                str = "Comparisson is passed";
+                str = "Assert is passed";
                 Report.print(str);
             }
             catch (Exception ex)
             {
                 Report.print(ex.ToString());
-                str = "Comparisson is failed";
+                str = "Assert is failed";
                 Assert.Fail(str);
             }
            

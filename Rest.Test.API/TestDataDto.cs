@@ -13,7 +13,7 @@ namespace Rest.Test.API.Tests
 
         public string? TestCaseName { get; set; }
         public string? URL { get; set; }
-        public string? Method { get; set; }
+        public string? MethodName { get; set; }
         public string? inputJson { get; set; }
         public string? OutputJson { get; set; }
 

@@ -15,26 +15,54 @@ namespace Rest.Test.API.Tests
     [TestClass]
     public class APIChallenges
     {
-        
+        RestRequest request;
+        RestResponse response;
         [TestMethod]
         public async Task TestMethodPostAsync()
         {
             Report.print("TestCase Execution started");
             RestClient client = new RestClient("https://apichallenges.herokuapp.com/challenger");
-            RestRequest request = new RestRequest("", Method.Post);
-            RestResponse restResponse = await client.PostAsync(request);
-
-            FrameworkHelper.checkAssert(201, (int)restResponse.StatusCode);
-
-
+            request = new RestRequest("", Method.Post);
+            response = await client.PostAsync(request);
+            FrameworkHelper.checkAssert(201, (int)response.StatusCode);
+            Report.print("TestCase Execution Completed");
         }
 
 
         [TestMethod]
         [DynamicData(nameof(GetTestData), DynamicDataSourceType.Method)]
-        public void TestAddAJ(int SrNo, string TestCaseName, string URL, string Method, string inputJson, string OutputJson, int StatusCode)
+        public async Task TestCase(int SrNo, string TestCaseName, string URL, string MethodName, string inputJson, string OutputJson, int StatusCode)
         {
-            Console.WriteLine(SrNo + StatusCode); 
+            Report.print("Serial No: " + SrNo.ToString());
+            Report.print("TestCae No: " + StatusCode.ToString());
+            Report.print("URL: "+ URL);
+            Report.print("Method Name: " + MethodName);
+            Report.print("InputJSON: " + inputJson);
+            Report.print("Expected OutputJson " + OutputJson);
+            //TODO: Check with blank input and output
+            
+            RestClient client = new RestClient(URL);
+            
+            if (MethodName == "Get")
+            {
+                Report.print("Executing GET Method");
+                request = new RestRequest("", Method.Get);
+                response = await client.GetAsync(request);
+            }
+            else
+            {
+                Report.print("Executing POST Method");
+                request = new RestRequest("", Method.Post);
+
+                //ToDo: POST CALL REQUEST, InputJSON
+                // RestResponse restResponse = await client.PostAsync(request);
+            }
+            Report.print(response.StatusCode.ToString());         
+
+            //TODO: Asser output json
+            FrameworkHelper.checkAssert(200, (int)response.StatusCode);
+            Report.print("TestCase Execution Completed");
+
             //Assert.AreEqual(expected, actual);
         }
         public static IEnumerable<object[]> GetTestData()
@@ -46,7 +74,7 @@ namespace Rest.Test.API.Tests
                    
                     yield return new object[]
                     {
-                        item.SrNo, item.TestCaseName, item.URL, item.Method, item.inputJson, item.OutputJson, item.StatusCode
+                        item.SrNo, item.TestCaseName, item.URL, item.MethodName, item.inputJson, item.OutputJson, item.StatusCode
                     };
                 
                 }
