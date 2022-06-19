@@ -16,3 +16,10 @@ Features:
 12. Execution through emails - Jenkins
 13. Access SQL thtough service
 14. Rabbit MQ
+
+
+Best practices used:
+Use ofPascalCasing for naming class and method
+Use of camelcasing for method arguments and local variables
+No use Hungarian notations, Screaming Caps
+Avoided using Abbrevations
