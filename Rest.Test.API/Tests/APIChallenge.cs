@@ -34,7 +34,7 @@ namespace Rest.Test.API.Tests
         public async Task TestCase(int SrNo, string TestCaseName, string URL, string MethodName, string inputJson, string OutputJson, int StatusCode)
         {
             Report.print("Serial No: " + SrNo.ToString());
-            Report.print("TestCae No: " + StatusCode.ToString());
+            Report.print("TestCase No: " + StatusCode.ToString());
             Report.print("URL: "+ URL);
             Report.print("Method Name: " + MethodName);
             Report.print("InputJSON: " + inputJson);
@@ -49,18 +49,18 @@ namespace Rest.Test.API.Tests
                 request = new RestRequest("", Method.Get);
                 response = await client.GetAsync(request);
             }
-            else
+            if (MethodName == "Post")
             {
                 Report.print("Executing POST Method");
                 request = new RestRequest("", Method.Post);
-
+                response = await client.PostAsync(request);
                 //ToDo: POST CALL REQUEST, InputJSON
                 // RestResponse restResponse = await client.PostAsync(request);
             }
             Report.print(response.StatusCode.ToString());         
 
             //TODO: Asser output json
-            FrameworkHelper.checkAssert(200, (int)response.StatusCode);
+            FrameworkHelper.checkAssert(StatusCode, (int)response.StatusCode);
             Report.print("TestCase Execution Completed");
 
             //Assert.AreEqual(expected, actual);
