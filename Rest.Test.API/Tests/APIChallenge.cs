@@ -24,6 +24,16 @@ namespace Rest.Test.API.Tests
             RestClient client = new RestClient("https://apichallenges.herokuapp.com/challenger");
             request = new RestRequest("", Method.Post);
             response = await client.PostAsync(request);
+
+             Report.print("Size of list-Count : " + response.ContentHeaders.Count);
+             Report.print("Size of list : " + response.ContentHeaders);
+             Report.print("Issuccessful : " + response.IsSuccessful);
+             Report.print("Server : " + response.Server);
+             Report.print("Content length : " + response.ContentLength);
+             Report.print("Content Encoding : " + response.ContentEncoding);
+             Report.print("version : " + response.Version);
+             Report.print("Content : " + response.Content);
+
             FrameworkHelper.checkAssert(201, (int)response.StatusCode);
             Report.print("TestCase Execution Completed");
         }
@@ -62,6 +72,7 @@ namespace Rest.Test.API.Tests
             //TODO: Asser output json
             FrameworkHelper.checkAssert(StatusCode, (int)response.StatusCode);
             Report.print("TestCase Execution Completed");
+
 
             //Assert.AreEqual(expected, actual);
         }
