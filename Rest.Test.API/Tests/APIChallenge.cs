@@ -49,7 +49,6 @@ namespace Rest.Test.API.Tests
             Report.print("Method Name: " + MethodName);
             Report.print("InputJSON: " + inputJson);
             Report.print("Expected OutputJson " + OutputJson);
-            //TODO: Check with blank input and output
             
             RestClient client = new RestClient(URL);
             
