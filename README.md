@@ -2,7 +2,7 @@
 C# framework to test Rest APIs using RestSharp.
 This framework will enable testers to directly start automation for RestAPIs through C# with RestSharp framework (using mstest)
 Features:
-1. support for test data -> csv files
+1. Support for test data through csv files
 2. Reports (SQL)
 3. Logs
 4. HTTPS support
