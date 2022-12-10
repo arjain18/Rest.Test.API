@@ -68,7 +68,7 @@ namespace Rest.Test.API.Tests
             }
             Report.print(response.StatusCode.ToString());         
 
-            //TODO: Asser output json
+            //TODO: Assert output json
             FrameworkHelper.checkAssert(StatusCode, (int)response.StatusCode);
             Report.print("TestCase Execution Completed");
 

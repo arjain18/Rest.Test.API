@@ -2,7 +2,7 @@ SrNo,TestCaseName,URL,MethodName,inputJson,OutputJson,StatusCode
 1,TC1,https://apichallenges.herokuapp.com/challenges,Get,,,200
 2,TC2,https://apichallenges.herokuapp.com/todos,Get,in1,Ou1,200
 3,TC3,https://apichallenges.herokuapp.com/challenger,Post,in1,ou1,201
-4,TC$, https://apichallenges.herokuapp.com/todos,      {
+4,TC4, https://apichallenges.herokuapp.com/todos, Post,  {
             
             "title": "process payments",
             "doneStatus": false,
