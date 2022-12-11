@@ -14,8 +14,9 @@ Features:
 10. Trends (SQL)
 11. Mobile UI
 12. Execution through emails - Jenkins
-13. Access SQL thtough service
+13. Access SQL through service
 14. Rabbit MQ
+15. schema validation
 
 
 Best practices used:
