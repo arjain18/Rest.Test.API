@@ -49,7 +49,7 @@ namespace Rest.Test.API.Tests
         [DynamicData(nameof(GetTestData), DynamicDataSourceType.Method)]
         public async Task TestCase(int SrNo, string TestCaseName, string URL, string MethodName, string inputJson, string OutputJson, int StatusCode)
         {
-            JObject GetJson;
+           // JObject GetJson;
             Report.print("Serial No: " + SrNo.ToString());
             Report.print("TestCase No: " + StatusCode.ToString());
             Report.print("URL: "+ URL);
@@ -61,34 +61,46 @@ namespace Rest.Test.API.Tests
             
             if(inputJson.EndsWith(".json"))
             {
-                var path = Path.GetFullPath(Path.Combine(Directory.GetCurrentDirectory(), "TestData", inputJson));
-
-                using (StreamReader file = File.OpenText(path))
-                using (JsonTextReader reader = new JsonTextReader(file))
+                try
                 {
-                    GetJson = (JObject)JToken.ReadFrom(reader);
-                    Report.print("Executing POST Method");
-                    var request = new RestRequest();
+                    var path = Path.GetFullPath(Path.Combine(Directory.GetCurrentDirectory(), "TestData", inputJson));
 
-                    request.Method = Method.Post;
-                    request.AddHeader("Accept", "application/json");
-                    //request.Parameters.Clear();
-                    request.AddParameter("application/json", GetJson, ParameterType.RequestBody);
+                    using (StreamReader file = File.OpenText(path))
+                    using (JsonTextReader reader = new JsonTextReader(file))
+                    {
+                        //var GetJson = (JObject)JToken.ReadFrom(reader);
+                        var GetJson = reader;
+                        Console.WriteLine("reader " + reader);
+                        JObject data = JObject.Parse(File.ReadAllText(path));
+                        Console.WriteLine("data " + data);
+                        Report.print("Executing POST Method"); 
+                        string requestJson = JsonConvert.SerializeObject(data);
+                        string datareq = requestJson;
+                        
 
-                    // var response = client.ExecuteAsync(request);
-                    response = await client.PostAsync(request);
-                    //var content = response.Status;
-                    // request = new RestRequest("", Method.Post);
-                    //request.RequestFormat = DataFormat.Json;
-                    //request.AddJsonBody( inputJson);
-                    //request.AddHeader("Accept", "application/json");
-                    // request.AddParameter("application/json", GetJson, ParameterType.RequestBody);
-                    Console.WriteLine("GetJSON" + GetJson);  
-                   // response = await client.PostAsync(request);
-                    //Console.WriteLine("Content " + content);
-                    Console.WriteLine("Response Body" + response.ToString());
+                        
+                        var request = new RestRequest();
+
+                        request.Method = Method.Post;
+                        request.AddHeader("Accept", "application/json");
+                        request.AddHeader("Content-type", "application/json");
+                        // request.AddParameter("application/json; charset=utf-8", GetJson.ToString(), ParameterType.RequestBody);
+                        //request.AddJsonBody(JsonConvert.SerializeObject(GetJson));
+                        request.RequestFormat = DataFormat.Json; 
+                        request.AddJsonBody(data.ToString());
+                        Console.WriteLine("GetJSONBody " + data.ToString());
+                        // var response = client.ExecuteAsync(request);
+                        response = await client.PostAsync(request.AddJsonBody(datareq));
+                        //response = await client.PostAsync(request);
+
+                        Console.WriteLine("Response Body" + response.ToString());
+                    }
                 }
-
+                catch (Exception e)
+                {
+                    Console.WriteLine(e);
+                }
+                
             }
 
             if (MethodName == "Get")
@@ -98,24 +110,28 @@ namespace Rest.Test.API.Tests
                 request = new RestRequest("", Method.Get);
                 response = await client.GetAsync(request);
             }
-            if (MethodName == "Post1")
+          /*  if (MethodName == "Post1")
             {
                 //ToDo: move common method in helper file
                 Report.print("Executing POST Method");
                 request = new RestRequest("", Method.Post);
-                //request.RequestFormat = DataFormat.Json;
-                //request.AddJsonBody( inputJson);
-                request.AddHeader("Accept", "application/json");
-                //request.Parameters.Clear();
-               // request.AddParameter("application/json", GetJson.ToString(), ParameterType.RequestBody);
+                request.RequestFormat = DataFormat.Json;
 
+                //request.AddJsonBody( inputJson);
+
+
+                //request.AddHeader("Accept", "application/json");
+                
+
+                // request.AddHeader("Content-type: application/json", "charset=utf-8");
+               // request.AddHeader("Content-type", "application/json");
                 //var response = client.Execute(request);
                 //var content = response.Content; // raw content as string
 
                 response = await client.PostAsync(request);
                 //ToDo: POST CALL REQUEST, InputJSON
                 // RestResponse restResponse = await client.PostAsync(request);
-            }
+            }*/
             //Report.print(response.StatusCode.ToString());         
 
             //TODO: Assert output json
